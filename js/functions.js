@@ -1,4 +1,24 @@
-// 1) Функция на проверку длины строки
+const convertTimeToMinutes = (timeString) => {
+  const [hours, minutes] = timeString.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+const checkMeetingInWorkHours = (workStart, workEnd, meetingStart, meetingDuration) => {
+  const workStartMinutes = convertTimeToMinutes(workStart);
+  const workEndMinutes = convertTimeToMinutes(workEnd);
+  const meetingStartMinutes = convertTimeToMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
+
+  return meetingStartMinutes >= workStartMinutes && meetingEndMinutes <= workEndMinutes;
+};
+
+checkMeetingInWorkHours('08:00', '17:30', '14:00', 90); // true
+checkMeetingInWorkHours('8:0', '10:0', '8:0', 120);     // true
+checkMeetingInWorkHours('08:00', '14:30', '14:00', 90); // false
+checkMeetingInWorkHours('14:00', '17:30', '08:0', 90);  // false
+checkMeetingInWorkHours('8:00', '17:30', '08:00', 900); // false
+
+/* 1) Функция на проверку длины строки
 const stringValidation = (testString, maxLength) => testString.length <= maxLength;
 console.log(stringValidation('dsajdjsajkdajkajkds', 32));
 console.log(stringValidation('dsajdjsajkdajkajkds', 19));
@@ -42,3 +62,4 @@ console.log(selectionOfNumber('а я томат'));
 console.log(selectionOfNumber(2023));
 console.log(selectionOfNumber(-1));
 console.log(selectionOfNumber(1.5));
+*/
